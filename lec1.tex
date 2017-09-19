@@ -1,0 +1,283 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в фомулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\theoremstyle{plain}
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+
+% Номера формул
+\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+\usepackage{soul} % выделение теорем и определений в разрядку
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+
+\title{НМУ. Алегбра-I}
+\author{Максим Изумрудов}
+\date{2017}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\begin{document}
+\newtheorem*{def*}{\underline{Опр}}
+$\textcircled{\oldstylenums{1}}
+1, 2, 3,... \; \textendash\;  натуральные \; \mathbb{N} $
+
+$ \textcircled{\oldstylenums{2}} ..., -2, -1, 0, 1, 2,... \; \textendash\; целые \; \mathbb{C} $
+
+$\textcircled{\oldstylenums{3}} \frac{m}{n} (m - целое, n - натуральное)\; \textendash \; \mathbb{Q}$
+
+$\textcircled{\oldstylenums{4}} действительные \; \mathbb{R}$
+
+$\textcircled{\oldstylenums{5}} \imath = \sqrt{-1}, a+b\imath (a, b \; -\; действительные)\; \textendash \; комплексные \; \mathbb{C}$
+
+$K = \mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$
+
+$a_{0}+a_{1}x+a_{2}x^{2}+...+a_{n}x^{n}=P(x) \; \textendash \;  многочлен$
+
+$a_{i}\in K \; \textendash \; коэффициенты$
+
+$если \; a^{n} \neq 0, то \; n \; \textendash \; степень\; P(x)$
+
+$deg P = 0 \; \Leftrightarrow \; P = a_{0} \; константа$
+
+$\cdot \; \; deg (P \cdot Q) = deg P + deg Q$
+
+$Множество \; многочленов \; с \; коэффициентами \; в \; K \; обозначается \; K[x]$
+
+	\begin{def*}
+		P, Q $\textendash$ многочлены. $P, Q \in K[x]$
+		
+		$P\; делится\; на\; Q, если\; \exists S \in K[x]\; такой, что\; P = Q \cdot S.$
+		Обозначается $P \vdots Q$
+	\end{def*}
+	\begin{def*}
+		Разделить P на Q с остатком $\textendash$ значит найти такие C, R, что $P = Q \cdot C + R$ и R=0 или $deg  R$ < $deg  Q$
+	\end{def*}
+	
+	\begin{tabular}{rr@{}l@{}l@{}l@{}rrrl@{}l|l} P=&&$x^4$&$-2x^3$&$+3x^2$&&&&&+7&$x+3$\\ \cline{2--2}\cline{11--11} &&$x^4$&$+3x^3$&&&&&&&$x^3-5x^2+18x-54$\\ \cline{3--3} \cline{4--9}
+	\end{tabular}\\
+	\begin{tabular}{rrrrrr@{}l@{}l@{}l}
+	&&&&&&$-5x^3$&$+3x^2$&\\
+	\cline{6--6}
+	&&&&&&$-5x^3$&$-15x^2$&\\ \cline{7--7}
+	\cline{8--13}
+	\end{tabular}\\
+	\begin{tabular}{rrrrrrrr@{}l@{}l@{}l@{}l@{}l@{}l@{}l@{}l}
+	&&&&&&&&$-18x^2$&&&&&&&\\ 
+	\cline{8--8}
+	&&&&&&&&$-18x^2$&$+54x$&&&&&&\\ \cline{9--10}
+	\cline{10--15}
+	\end{tabular}\\
+	\begin{tabular}{rrrrrrrr@{}r@{}rl@{}l@{}l}
+	&&&&&&&&$\;\;\;\;\;\;$&&$-54x$&+7&\\ \cline{10--10}
+	&&&&&&&&$\;\;\;\;\;\;$&&$-54x$&-162&\\ \cline{11--17} \cline{12--17}
+	\cline{13--21}
+	\end{tabular}\\
+	\begin{tabular}{rrrrrrrr@{}r@{}rl@{}l@{}l}
+	&&&&&&&&$\;\;\;\;\;\;\;\;\;\;\;\;\;$&&&+169&\\ 
+	\end{tabular}
+	
+$P=(x+3)(x^3-5^2+18x-54)+169$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\parallel\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\parallel$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;C\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;R$
+
+\underline{Доказательство единственности:}
+
+$Q \cdot C_{2}+R_{2}=P=Q \cdot C_{1} + R_{1}$
+
+$Q(C_{1}-C{2})=(R_{1}-R_{2})$
+
+$deg()\geqslant degQ \; \; \; deg()<degQ$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;противоречие$
+
+\underline{Теорема Безу} $\;\;\;\;$ $P(x) \in K[x]$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;$$x-a$, $ \;\;\; a\in K$
+
+Остаток от деления $P(x)$ на $x-a$ равен $P(a)$
+
+\underline{Док-во}: $\;\;$ $P(x)=C(x) \cdot (x-a) + R(x)$ $\;\;\;\;\;$ $R(x)\in K$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;+R$
+
+подставим $x=a$:
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;P(a)=C(a) \cdot (a-a)+R$
+
+\underline{Следствие}: $\; \bullet \; P(a)=0 \Leftrightarrow P \vdots (x-a)$
+
+$a_{1}, ..., a_{k} \textendash корни \;\; P \Leftrightarrow P \vdots (x-a_{1})(x-a_{2})...(x-a_{k}) \; различные$
+
+$P \vdots (x-a_{1})\;\;\;\;\;\; P(x)=(x-a_{1})\cdot C(x)$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;x=a_{2}: \; 0=(a_{2}-a_{1}) \cdot C(a_2)$
+
+$C \vdots (x-a_{2}) \;\;\;\;\; C(x)=(x-a_{2}) \cdot C_{1}(x)$
+
+$\bullet \; У \; P(x) \; не \; более \; deg P \; различных \; корней$
+
+$\bullet Пусть P_{1}, P_{2} \in K[x]$
+
+$Пусть \; P_{1}(x)=P_{2}(x) \; имеет \; бесконечно \; много \; решений$
+
+$Тогда \; P_{1}=P_{2} \; как \; многочлен \; (коэффициенты \; равны)$
+
+\begin{def*}
+$Многочлен \; P(x) \; неприводим \; в \; K[x], \; если \; deg P > 0 \; и \; P(x)=P_{1}(x) \cdot P_{2}(x) \; следует, \; что \; deg P_{1}$
+$или \; deg P_{2}=0$
+\end{def*}
+
+НОД
+
+\begin{def*}[1]
+$НОД\; P\; и\; Q \; \textendash\; это\; их\; общий\; делитель, имеющий\; максимально\; возможную\; степень$
+\end{def*}
+
+\begin{def*}[2]
+	$НОД \; P \; и\;  Q\; \textendash\; это \; D,\; такой\;  что$
+	
+	$\bullet P \vdots D \; и \; Q \vdots D$
+
+	$\bullet Если\; P \vdots D' \; и\; Q \vdots D',\; то\; D \vdots D'$
+\end{def*}
+
+\begin{def*}
+$P,Q \in K[x] \; эквивалентны, \; если \; \exists c,c' \in K, \; такие\; что\; P=Q \cdot C, \; Q=P \cdot C'$
+\end{def*}
+
+\underline{\textbf{Замечание}} P эквивалентно Q $\Leftrightarrow$ $P \vdots Q$ и $Q \vdots P$
+
+%$P = Q \cdot C$
+
+$Если \; D_{1} \; и \; D_{2} \; \textendash \; НОД(P, Q)\; по Опр(2), то \; D_{1} \; эквивалентен \; D_{2}.$
+
+$Алгоритм \; (Евклида) \; поиска \; НОД(P, Q)$
+
+\begin{tabular}{@{}l@{}l}
+$P, Q$&$\;\;P=Q \cdot C + R_{1}$\\
+$Q,R_{1}$&$\;\;Q=R_{1} \cdot C + R_{2}$\\
+$R_{1}, R_{2}$&$\;\;R_{2}=R_{2} \cdot C + R_{3}$\\
+&...\\
+$R_{k-1}, R_{k}$&$\;\; R_{k-1}=R_{k} \cdot C + R_{k+1}$\\
+&$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\|$\\
+&$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;0$\\
+$R_{k}, 0$
+\end{tabular}\\
+
+\underline{Утв.} $R_{k}=НОД(P, Q)\; по\; опр(2)$
+
+$ОД(P, Q)=ОД(Q, R_{1})=ОД(R_{1}, R_{2})=...=ОД(R_{k},0)=\{делители\; R_{k}\}$
+
+$Пусть \; D \; -\; делитель \; P\; \; и \;Q$
+
+$\;\;\;\;\; P \vdots D, \; Q \vdots D$
+
+$P=D \cdot P_{1}, \; Q=D \cdot Q_{1}$
+
+$R_{1}=P-Q \cdot C=D\cdot P_{1} - C \cdot Q_{1} \cdot D=D(P_{1}-CQ_{1})$
+
+$Опр(1) \Rightarrow Опр(2)$
+
+$D \; - \; НОД \; по \; Опр(1)$
+
+$НОД(P, Q) \vdots D \;(по\; опр(2))$
+
+$D \; эквивалентен\; НОД(P, Q)\; (в\; смысле\; опр(2))$
+
+\underline{Предположение} $P, Q \in K[x]\; -\; многочлены$
+
+$тогда \; \exists U, V \in K[x],\; такие\; что\; НОД(p, Q)=U \cdot P + V \cdot Q$
+
+\underline{Док-во}.: $Любой\; R_{i}\; имеет\; вид:$
+
+$R_{i}=U_{i} \cdot P + V_{i} \cdot Q, \;где \; U_{i}, V_{i} \in K[x]$
+
+$P=1 \cdot P + 0 \cdot Q$
+
+$Q=0 \cdot P + 1 \cdot Q$
+
+$R_{n+1}=R_{n-1}-C_{n} \cdot R_{n}=U_{n-1}P+V_{n-1}Q-C_{n}(U_{n}P+V_{n}Q)=$
+
+$=(U_{n-1}-C_{n}U_{n})P+(V_{n-1}-C_{n}V_{n})Q$
+
+\begin{def*}
+$Многочлены\; P и\; Q\; взаимнопросты,\; если\; НОД(P , Q)=1$
+\end{def*}
+
+\underline{\textbf{Cледствие}} $P, Q\; взаимнопросты,\; то\; \exists U, V \in K[x],\; что P \cdot U + Q \cdot V$
+
+\underline{\textbf{Замечание}} $P, Q \;\;\;\; Q \; -\; неприводим$
+
+$либо\; P, Q \; взаимнопростые$
+
+$либо\; P \vdots Q$
+
+\underline{\textbf{Самая главная лемма}}: $\bullet P, Q, S \in K[x] \;\;\; P \cdot Q \vdots S \;\;\; Тогда\; P \vdots S$
+
+$\bullet P_{1} \cdot P_{2} \vdots Q\; и \; Q\; -\; неприводим,\; то\; P_{1} \vdots Q \; или\; P_{2} \vdots Q$
+
+\underline{\textbf{Док-во}}: $\exists U, V \in K[x] \;\;\; Q \cdot U + S \cdot V = 1$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \underbrace{P\cdot Q\cdot U}+\underbrace{S\cdot V\cdot P}=\underbrace{P}$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \vdots S \;\;\;\;\;\;\;\;\;\;\;\;\;\;\vdots S \;\;\;\;\;\;\;\;\;\;\;\vdots S \;$
+
+$\bullet Пусть\; P_{1}\; не\; делится\; на\; Q.\; Тогда\; P_{1}\; и\; Q\; взаимнопростые(по\; замечанию)$
+
+\underline{\textbf{Основная Теорема Арифметики для многочленов}}
+
+$\forall многочлен\; P(x)\; имеет\; разложение\; в\; произведение\; неприводимых.\; P=P_{1}\cdot ...\cdot P_{n}$
+
+$оно\; единственно:\; если\; P_{1}\cdot ...\cdot P_{n}=Q_{1}\cdot ...\cdot Q_{m}\; (P_{i}, Q_{j} неприводимые),\; то\; \underline{n=m}\; с\; точностью\; до\; перестановки\; сомножителей. для всех P_{i} эквивалентен Q_{i}$
+
+$P_{1}\cdot P_{2}\cdot ...\cdot P_{n}=Q_{1}\cdot Q_{2}\cdot ...\cdot Q_{n}$
+
+$\exists j:\; Q_{j}\vdots P_{1}\; \Leftarrow Q_{j}=P_{1}\cdot C \;\;\;\; C=const$
+
+$\;\;\;\;\;\;\;\;Q_{j}\; эквивалентен\; P_{1}$
+
+$пусть\; j=1$
+
+$P_{2}\cdot P_{3}\cdot ...\cdot P_{n}=(C\cdot Q_{2})\cdot ...\cdot Q_{m}$
+
+$\textcircled{\oldstylenums{1}} \;\; K=\mathbb{C} \;\;\; P\; неприводим\; \Leftrightarrow \; deg P=1$
+
+$Основная\; теорема \;алгебры: P(x)=c(x-a_{1})...(x-a_{n}),\;\; c, a_{1}, ..., a_{n}\in\mathbb{C}$
+
+$\textcircled{\oldstylenums{2}} \;\; K=\mathbb{R} \;\;\; P\; неприводим \Leftrightarrow\; deg P=1\; или\; deg P=2\; и\; D<0$
+
+$\textcircled{\oldstylenums{3}} \;\; K=\mathbb{Q} \;\; алгебраичные\; числа \;\;\; сложновато$
+\end{document}
