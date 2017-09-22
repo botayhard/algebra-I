@@ -1,0 +1,343 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в фомулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\theoremstyle{plain}
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+
+% Номера формул
+\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+\usepackage{soul} % выделение теорем и определений в разрядку
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+
+\title{НМУ. Алегбра-I}
+\author{Максим Изумрудов}
+\date{2017}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\begin{document}
+\newtheorem*{def*}{\underline{Опр}}
+\newtheorem*{def'}{\underline{Опр`}}
+\begin{def*}
+$Поле\; это\; множество\; K\; с\; операциями\; +\; и\; \cdot :\; K\times K\rightarrow K,\; такими\; что$
+
+$1.\; \forall a,b,c \in K \;\;\; a+(b+c)=(a+b)+c\;(ассоциативность\; сложения);$
+
+$2.\; \exists 0 \in K\; \forall a \in K \;\;\; a+0=0+a=0\;(наличие нуля);$
+
+$3.\; \forall \in K \; \exists (-a) \in K\;\;\; a+(-a)=(-a)+a=0\;(наличие\; противоположного);$
+
+$4.\; \forall a,b \in K\;\;\; a+b=b+a\;(коммутативность\; сложения);$
+
+$5.\; \forall a,b,c \in K \;\;\; (a+b)\cdot c=a\cdot c+b\cdot c;\;c\cdot (a+b)=c\cdot a+c\cdot b\;(дистрибутивность\; умножения\\относительно\; сложения);$
+
+$6.\; \forall a,b,c \in K \;\;\; a\cdot(b\cdot c)=(a\cdot b)\cdot c\;(ассоциативность\; умножения);$
+
+$7.\; \exists 1 \neq 0 \; \forall a \in K \;\;\; a\cdot 1=1\cdot a=a\;(наличие\; единицы);$
+
+$8.\; \forall a\neq 0 \in K \; \exists a^{-1}\in K \;\;\; a\cdot a^{-1}=a^{-1}\cdot a=1\;(наличие\; обратного);$
+
+$9.\; \forall a,b\in K\;\;\; a\cdot b=b\cdot a \;(коммутативность\; умножения).$
+\end{def*}
+
+\begin{def*}
+$G\; с\; операцией\; +:\; G\times G \rightarrow G\,; удовлетвлетворяющий\; 1., 2., 3.,\; называется\; \underline{группой}.$
+\end{def*}
+
+\begin{def*}
+$Если\; выполнены\; 1-7,\; то\; K\; называется\; \underline{кольцом}.$
+\end{def*}
+
+\begin{def*}
+$Если\; выполнены\; 1-7\; и\; 9,\; то\; K\; называется\; \underline{коммутативным\; кольцом}.$
+\end{def*}
+
+\begin{def*}
+$Если\; выполнены\; 1-8,\; то\; К\; называется\; \underline{телом}.$
+\end{def*}
+
+\underline{\textbf{Примеры}}:
+
+$\mathbb{N}$ - ничего
+
+$\mathbb{Z}$ - коммутативное кольцо
+
+$\mathbb{Q, R, Z}$ - поля
+
+$\mathbb{Z}[$x$], \mathbb{R}[$x$], \mathbb{C}[$x$]$ - коммутативное кольцо
+
+$K - поле \Rightarrow K[x]$ - коммутативное кольцо
+
+$m \in \mathbb{N} \;\; множество\; остатков\; от\; деления\; на\; m\; \{0, 1, 2, ..., m-1\}\;-\;комутативное\; кольцо\\ (обозначается \mathbb{Z}/_{m}\mathbb{Z})$
+
+$B_{m}=\{f: \; \{0, 1\}^{n} \rightarrow \{0, 1\}\}$ - коммутативное кольцо(Булева алгебра)
+
+$(Пример)f(x_{1, ..., x_{n}})=x_{1}\; и\; (x_{2}\; или\; x_{3})\; и\; (не\; x_{4})$
+
+$f_{1}+f_{2} := f_{1} XOR f_{2}=f_{1}+f_{2}(mod 2)$
+
+\begin{tabular}{c|c|c}
+XOR&0&1\\ \cline{1-3}
+0&0&1\\ \cline{1-3}
+1&1&0
+\end{tabular}
+
+$f_{1} \cdot f_{2} := f_{1} \; и \; f_{2}=f_{1}\cdot f_{2}(mod 2)$
+
+$X\; -\; множество \;\;\; \wp(X)\; -\; множество\; подмножеств\; X\;\;\; коммутативное\; кольцо$
+
+$A, B \subset X$
+
+$A+B=A\bigtriangleup B=(A\setminus B) \cup (B\setminus A)$
+
+$AB=A\cap B$
+
+$R\; -\; коммутативное\; кольцо$
+
+\underline{\textbf{Замечание}}:
+
+$\bullet\; -a\; единственный$
+
+$\bullet\; 1, a_{-1}\; единственные$
+
+$\bullet\; a-b\; -\; решение\; x+b=a$
+
+$\bullet\; a-(b-c)=a-b+c$
+
+$\bullet\; a\cdot(-b)=-(a\cdot b)$
+
+$\bullet\; a\setminus b\; -\; это\; x,\; что\; x\cdot b=a$ 
+
+$\bullet\; \frac{a}{b\cdot c}=(\frac{a}{b}):c$
+
+$\bullet\; a\cdot 0=0=0\cdot a$
+
+\begin{def*}
+$a\vdots b,\; если\; \exists с:\; a=b\cdot b$
+\end{def*}
+
+\underline{\textbf{Свойства}} $a\vdots c, b\vdots c\;\Rightarrow\; a+b, a-b\;\vdots\; c$
+
+$a\vdots c\; \Rightarrow \; ab\vdots c$
+
+$a\vdots b, c\vdots d\;\Rightarrow\; ac\vdots bd$
+
+$a\vdots b, b\vdots c\;\Rightarrow\; a\vdots c$
+
+\underline{\textbf{Замечание}} \boxed{ac\vdots bc\;\Rightarrow\; a\vdots b, c\neq 0} -- неверно если $\exists дел\; 0$ 
+
+$ac=bc\cdot d\;\Rightarrow\; a=b\;\cdot d$
+
+$(a-bd)\cdot c=0$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\nparallel$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;0$
+
+\begin{def*}
+$x\; -\; \underline{делитель\; нуля},\; если\; x\neq 0\; \; \exists y\neq 0, такие\; что\; xy=0$
+\end{def*}
+
+$Пример:\; R=\mathbb{Z}/_{6}\mathbb{Z},\; x=2\; x=3\; -\; делители\; нуля$
+
+\underline{\textbf{Замечание}} $Если\; в\; R\; нет\; делителей\; 0,\; то\; из\; ac=bc\; и\; c\neq 0 \; следует\; a=b$
+
+\underline{\textbf{Замечание}} $R=\mathbb{Z}/_{6}\mathbb{Z}$
+
+$x=3$
+
+$x^{2}=3=x$
+
+$R\; -\; комутативное\; кольцо\; без\; делителей\; нуля.$
+
+\begin{def*}
+$Кольцо\; без\; делителей\; нуля\; называется\; \underline{целостным}\; (или\; областью)$
+\end{def*}
+
+\begin{def*}
+$элемент\; x\in R\; \underline{обратим},\; если\; \exists y\in R:\; xy=1\; (если\; 1\vdots x\in R).\\ Множество\; обратимых\; элементов\;обозначается\; R^{*}=\{x\;|\;x\; обр\; в\; R\} $
+\end{def*}
+
+\underline{\textbf{Примеры}}:
+
+$R=\mathbb{Z}\;\;\; \mathbb{Z}^{*}=\{1, -1\}$
+
+$K\; -\; поле\;\;\; R=K[x]\;\;\; R^{*}=\{c\in K, c\neq 0\}$
+
+\underline{\textbf{Замечание}} $R^{*}\; -\; группа\; по\; умножению$
+
+$x, y\; -\; обратимые,\; xy\; тоже\; обратим$
+
+$1=x\cdot u$
+
+$1=y\cdot v$
+
+$1=(xy)(uv)$
+
+$\underline{Эквивалентность}\\ X\; -\; множество$
+
+$\underline{Отношение}\; на\; X\; -\; это\; подмножество\; S\subset X\times X,\; если\; (x, y) \in S\; пишут\; xSy$
+
+$<:\; \{(x, y)\; |\;x<y\},\; \equiv mod 3 \{(x, y)\;|\;|x-y|:3\}$
+
+\begin{def*}
+$S\; -\; отношение\; эквивалентности,\; если$
+
+$\bullet\; \forall x\;\;\; (x, x)\in S\;\;\;рефлексивность$
+
+$\bullet\; (x, y)\in S\; \Rightarrow\; (y,x)\in S\;\;\;симмитричность$
+
+$\bullet\; (x,y)\in S,\; (y, z)\in S\; \Rightarrow\; (x,z)\in S\;\;\;транзитивность$
+
+$x \in X\;\; [x]=\{y\;|\;xSy\}=\{y\;|\;x\sim y\}\;\;\textendash \;\; класс\;эквивалентности$
+
+$S\; обозначается\; \sim$
+\end{def*}
+
+$Множество\; классов\; эквивалентности\; X\; по\; отношению\; \sim\; обозначается\; X/_{\sim}\\(Фактор\; множество\; по\; отношению\; \sim)$
+
+\begin{def*}
+$x\; эквивалентен\; y,\; если x\vdots y,\; y\vdots x$
+\end{def*}
+\begin{def'}
+$x\; эквивалентен\; y,\; если x=y\cdot c,\; c - обратимый$
+\end{def'}
+
+\underline{\textbf{Утверждение}} $Опр\; \sim\; Опр`$
+
+\boxed{\Leftarrow} $\;\;\; x=y\cdot c\;\Rightarrow\;x\vdots y$
+
+$\;\;\;\;\;\;\;\;\;\; c^{-1}=y\;\Rightarrow\;y\vdots\;x$
+
+\boxed{\Rightarrow} $\;\;\; x=y\cdot u$
+$\;\;\;\;\;\;\;\;\;\; y=x\cdot v$
+
+$\;\;\;\;\;\;\;\;\;\; x=x\cdot v\cdot u$
+
+$\;\;\;\;\;\;\;\;\;\; x(1-vu)=0$
+
+$Если\; x\neq0,\; то\; 1=vu\;\Rightarrow\; v, u\;-\; обратимы\;\Rightarrow\;Опр`$
+
+\begin{def*}
+$x\in R\;\; x\;-\;неприводим,\; если\; x\neq 0,\; x \; - \; необратим\; x=ab\;\; a, b\in R,\; следует,\; что\; a\; или\\b\; обратим$
+\end{def*}
+
+\begin{def*}
+$a, b\in R\;\;\; НОД(a, b)\;-\; это d\in R: a\vdots d,\; b\vdots d\; и\; \forall d$'$\;верно\; d\vdots d$'
+\end{def*}
+
+$Существование\; это\; открытый\; вопрос$
+
+$Единственность$:
+
+$d_{1}\; и\; d_{2}\;\; НОД(a, b),\; то\; d_{1}\sim d_{2}$
+
+\textbf{Пример}$\; R=\mathbb{R}[x,y]$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;a=x$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;b=y$
+
+\textbf{"Теорема" о существовании и единственности разложения на неприводимые}
+
+$\forall x\in R\;\;\; x\neq\;\; x\; необратимый\;\; \exists x=p_{1}\cdot\dots\cdot p_{n}\;\; p_{i}\;-\;неприводим$
+
+$если x=p_{1}\cdot\dots\cdot p_{n}=q_{1}\cdot\dots\cdot q_{m}\;\; p_{i}, q_{j}\; неприводимы,\; то\; n=m\; и\; с\; точностью\; до\; перестановки\\ сомножителей\; p_{i}\sim q_{i}\; для\; всех\; i$
+
+$\underbrace{\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;}$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;Вообще\; говоря\; неверно!$
+
+\textbf{примеры} $\; R=\mathbb{Z}\;-\; верно$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; K\;-\; поле\;\;R=K[x]\;-\; верно$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; K[x_{1}, x_{2}, \dots, x_{n}]\;\; коэффициенты\; из\; поля\; -\; верно$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \mathbb{Z}[x_{1}, x_{2}, \dots, x_{n}]\; -\; верно$
+
+$R=\{P\in \mathbb{R}[x]\; |\; P\;\; a_{0}+a_{2}x^{2}+a_{3}x^3{}\}$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\cap$
+
+$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\mathbb{R}[x]$
+
+$x^{2}, x^{3}\;-\;неприводимы$
+
+$X^{6}=x^{2}\cdot x^{2}\cdot x^{2}=x^{3}\cdot x^{3}$
+
+\begin{def*}
+$Кольцо\;R\;-\;факториально,\; если\; в\; R\; верна\; ОТА_{р}$
+\end{def*}
+
+\begin{def*}
+$f:\; R_{1} \rightarrow R_{2} \;\;(R_{1}, R_{2}\; -\; кольца)\;\;\; f\;-\; гомоморфизм,\; если\;$
+
+$\bullet\; f(a+b)=f(a)+f(b)$
+
+$\bullet\; f(ab)=f(a)f(b)$
+
+$\bullet\; f(1)=1$
+\end{def*}
+
+
+\underline{\textbf{Свойства}}:
+
+$f(0)=0$
+
+$f(-a)=-f(a)$
+
+$f(a^{-1})=f^{-1}(a)\;\;(если\;\;существует)$
+
+\textbf{Примеры}
+
+$\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}\subset\mathbb{C}:\; вложение\;-\;гомоморфизм$
+
+$\mathbb{Z}\leftarrow\mathbb{Z}/_{m}\mathbb{Z}$
+
+$\mathbb{C} \rightarrow \mathbb{C}\;\;\;\; z\mapsto \overline{z}$
+
+$R \longrightarrow Frac R\;-\; поле\; частных$
+
+$FracR=\{\frac{a}{b}\;|\;a, b\in R,\; b\neq 0\}$
+
+$отношение\; эквивалентности\;\; \frac{a}{b}\sim\frac{c}{d},\; если\; ad=bc$
+
+$[\frac{a}{b}]+[\frac{c}{d}]=[\frac{ad+bc}{bd}];\;\; [\frac{a}{b}]\cdot[\frac{c}{d}]:=[\frac{ab}{cd}]$
+
+$\;\parallel$
+
+$[\frac{a'}{b'}]$
+\end{document}
